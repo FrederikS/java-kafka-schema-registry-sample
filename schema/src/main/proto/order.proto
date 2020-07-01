@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "codes.fdk.kafka.schema";
+option java_outer_classname = "OrderProtos";
+
+message Order {
+  string id = 1;
+  string product_id = 2;
+  string customer_id = 3;
+  uint32 quantity = 4;
+}
