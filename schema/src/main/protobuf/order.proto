@@ -1,6 +1,7 @@
 syntax = "proto3";
+package codes.fdk.sample.kafka.schema;
 
-option java_package = "codes.fdk.kafka.schema";
+option java_package = "codes.fdk.sample.kafka.schema";
 option java_outer_classname = "OrderProtos";
 
 message Order {

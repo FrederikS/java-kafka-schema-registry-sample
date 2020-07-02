@@ -4,12 +4,8 @@ import java.util.Properties;
 import java.util.UUID;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import codes.fdk.kafka.schema.OrderProtos.Order;
+import codes.fdk.sample.kafka.schema.OrderProtos.Order;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) {
         Properties props = new Properties();
@@ -33,7 +29,7 @@ public class App {
                            .setQuantity(4)
                            .build();
 
-        producer.send(new ProducerRecord<>("orders", orderId, order));
+        producer.send(new ProducerRecord<String, Order>("orders", orderId, order));
 
         producer.close();
     }
