@@ -5,6 +5,7 @@ import java.lang.System.Logger.Level;
 import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
+import com.google.protobuf.TextFormat;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import codes.fdk.sample.kafka.schema.OrderProtos.Order;
@@ -16,7 +17,7 @@ public class App {
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "orders-consumer");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "orders-consumer-group");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
@@ -33,7 +34,15 @@ public class App {
 
         try {
             while (true) {
-                consumer.poll(Duration.ofMillis(100)).forEach(r -> LOG.log(Level.INFO, r.value()));
+                consumer.poll(Duration.ofMillis(100))
+                        .forEach(
+                                r -> LOG.log(
+                                        Level.INFO,
+                                        "key={0}, value='{'{1}'}'",
+                                        r.key(),
+                                        TextFormat.shortDebugString(r.value())
+                                )
+                        );
             }
         } finally {
             consumer.close();
