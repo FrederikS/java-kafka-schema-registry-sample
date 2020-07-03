@@ -9,6 +9,12 @@ docker-compose up
 mvn clean install
 ```
 
+### Run consumer
+
+```shell
+mvn -pl producer exec:java -Dexec.mainClass=codes.fdk.sample.kafka.App
+```
+
 ### Run producer
 
 ```shell
